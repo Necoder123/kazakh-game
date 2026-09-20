@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A game about the history of Kazakhstan - Urolbek Kholmurodov</title>
+<meta name="description" content="A self-taught developer from Kazakhstan is building a game about the history and mythology of his country. Two finished games so far: Dungeon and Rooted.">
+<meta property="og:title" content="A game about the history of Kazakhstan">
+<meta property="og:description" content="Made by a 21-year-old self-taught developer from Kazakhstan. See what I've built so far.">
+<meta property="og:image" content="https://necoder123.github.io/kazakh-game/images/concept-art.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://necoder123.github.io/kazakh-game/images/concept-art.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Onest:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #15121d;
+    --night-2: #1e1a2b;
+    --stone: #8b84b0;
+    --ember: #e0622f;
+    --torch: #f2b25c;
+    --sky: #3bb4cf;
+    --text: #efeaf6;
+    --muted: #b3aec6;
+    --line: #34304a;
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Onest", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: var(--torch); text-underline-offset: 3px; }
+  a:hover { color: #ffd08a; }
+  :focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { width: min(1080px, 100% - 40px); margin-inline: auto; }
+
+  /* top bar */
+  .top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 0; gap: 16px; flex-wrap: wrap;
+  }
+  .top .name { font-family: var(--display); font-weight: 700; font-size: 1.05rem; }
+  .top a { font-size: .95rem; }
+
+  /* hero */
+  .hero {
+    display: grid; grid-template-columns: 1fr 1.25fr; gap: 48px;
+    align-items: center; padding: 40px 0 64px;
+  }
+  h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(2.3rem, 5.2vw, 3.8rem); line-height: 1.04;
+    margin: 0 0 22px; letter-spacing: -.02em;
+  }
+  .lede { color: var(--muted); font-size: 1.12rem; max-width: 34ch; margin: 0 0 28px; }
+  .btn {
+    display: inline-block; background: var(--ember); color: #1a0f0a;
+    font-weight: 500; padding: 13px 24px; border-radius: 6px;
+    text-decoration: none; font-size: 1rem;
+  }
+  .btn:hover { background: var(--torch); color: #1a0f0a; }
+
+  .frame {
+    border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+    background: var(--night-2);
+    box-shadow: 0 0 0 6px rgba(224, 98, 47, .08), 0 24px 60px rgba(0,0,0,.45);
+  }
+  .frame img { width: 100%; }
+  figcaption { font-size: .88rem; color: var(--muted); padding: 10px 2px 0; }
+  figure { margin: 0; }
+
+  /* horn ornament divider (koshkar-muiz inspired) */
+  .orn { height: 26px; opacity: .8; margin: 8px 0; }
+  .orn svg { width: 100%; height: 100%; display: block; }
+
+  section { padding: 56px 0; }
+  h2 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.6rem, 3.2vw, 2.2rem); line-height: 1.15;
+    margin: 0 0 18px; letter-spacing: -.01em;
+  }
+  h3 { font-family: var(--display); font-weight: 700; font-size: 1.35rem; margin: 0 0 8px; }
+  p { margin: 0 0 16px; max-width: 62ch; }
+  .muted { color: var(--muted); }
+
+  .concept { margin: 48px 0 0; }
+  .idea { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .idea p { max-width: 46ch; }
+
+  .game { padding: 36px 0 20px; }
+  .game .head { max-width: 62ch; margin-bottom: 26px; }
+  .wide { max-width: 820px; }
+  .shots-b { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; align-items: start; }
+  .stack { display: grid; gap: 20px; }
+
+  .about { padding: 56px 0; background: var(--night-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .about .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+  footer { padding: 44px 0 60px; color: var(--muted); font-size: .95rem; }
+  footer .mail { font-family: var(--display); font-size: 1.4rem; font-weight: 700; color: var(--text); }
+
+  @media (max-width: 820px) {
+    .hero, .idea, .about .wrap, .shots-b { grid-template-columns: 1fr; gap: 28px; }
+    .hero { padding-top: 16px; }
+    .lede { max-width: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span class="name">Urolbek Kholmurodov</span>
+    <a href="mailto:oooralbekhouse@gmail.com">oooralbekhouse@gmail.com</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <h1>A game about the history of Kazakhstan</h1>
+        <p class="lede">I'm a 21-year-old self-taught developer from Kazakhstan. I want to make the game about my country that I could never find.</p>
+        <a class="btn" href="mailto:oooralbekhouse@gmail.com?subject=About%20your%20game">Write to me</a>
+      </div>
+      <figure>
+        <div class="frame">
+          <img src="images/dungeon-skeleton.jpg" width="1274" height="722" alt="First-person view of a torch-lit dungeon corridor with a skeleton enemy approaching and a red blaster in the player's hand">
+        </div>
+        <figcaption>Dungeon, my current 3D project. The interface is in Russian for now.</figcaption>
+      </figure>
+    </div>
+
+    <div class="orn" aria-hidden="true">
+      <svg viewBox="0 0 1080 26" preserveAspectRatio="none">
+        <defs>
+          <pattern id="horn" width="54" height="26" patternUnits="userSpaceOnUse">
+            <path d="M2 13 C 10 2, 24 2, 27 13 C 30 24, 44 24, 52 13" fill="none" stroke="#e0622f" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="27" cy="13" r="2.4" fill="#f2b25c"/>
+          </pattern>
+        </defs>
+        <rect width="1080" height="26" fill="url(#horn)"/>
+      </svg>
+    </div>
+
+    <figure class="concept">
+      <div class="frame">
+        <img src="images/concept-art.jpg" width="1600" height="900" loading="lazy" alt="Concept art: a rider in fur-trimmed armor with a bow on the Kazakh steppe at sunset, heading toward a village of yurts, with a quest, compass, minimap and item bar on screen">
+      </div>
+      <figcaption>Concept art (AI-generated) for the planned game: the steppe setting and the interface I want to build. This is a vision, not gameplay.</figcaption>
+    </figure>
+
+    <section class="idea">
+      <div>
+        <h2>The idea</h2>
+        <p>Very few games tell the story of the Kazakh steppe. I want to build one that does: the Saka and their burial mounds, the Silk Road cities, the nomadic khanates, Tengri and the spirits of the ancestors.</p>
+      </div>
+      <div>
+        <p class="muted" style="margin-top: 58px;">The project is at the planning stage. Before I start it, I'm proving to myself that I can finish games, which is why there are two completed games below.</p>
+        <p class="muted">I'm looking for tools and support that would let me commit to it properly.</p>
+      </div>
+    </section>
+
+    <section class="game" id="dungeon">
+      <div class="head">
+        <h2>Dungeon</h2>
+        <p>A 3D first-person dungeon crawler I build alone. You go down through floors, fight enemies and bosses, collect loot and level up your character. It has a minimap, an inventory bar, health and energy, and weapons with ammo.</p>
+      </div>
+      <figure class="wide">
+        <div class="frame"><img src="images/dungeon-corridor.jpg" width="1282" height="718" loading="lazy" alt="A long stone corridor lit by wall torches with a red blaster in the foreground"></div>
+        <figcaption>Torch-lit corridors in a low-poly style. The skeleton shot at the top shows combat, inventory and the minimap.</figcaption>
+      </figure>
+    </section>
+
+    <!--
+      VIDEO SECTION (uncomment after you upload a video to YouTube as "Unlisted")
+      Replace VIDEO_ID with the part after v= in the YouTube link.
+
+    <section>
+      <h2>Gameplay video</h2>
+      <div class="frame" style="aspect-ratio:16/9">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Dungeon gameplay" style="width:100%;height:100%;border:0" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </section>
+    -->
+
+    <section class="game" id="rooted">
+      <div class="head">
+        <h2>Rooted</h2>
+        <p>An idle and merge game about a garden that grows itself. You merge plants up to their legendary forms, open tickets for rewards, complete orders, fill an album and unlock zones. It has multiple save slots, achievements and ranks, and it runs from the first seed to the max-level tree.</p>
+      </div>
+      <div class="shots-b">
+        <figure>
+          <div class="frame"><img src="images/rooted-garden.jpg" width="1400" height="782" loading="lazy" alt="Rooted garden grid full of merged plants around a large blue tree"></div>
+          <figcaption>The garden at a late stage.</figcaption>
+        </figure>
+        <div class="stack">
+          <figure>
+            <div class="frame"><img src="images/rooted-menu.jpg" width="1400" height="780" loading="lazy" alt="Rooted main menu with save slots, achievements and a large blue tree"></div>
+            <figcaption>Main menu with save slots and ranks.</figcaption>
+          </figure>
+          <figure>
+            <div class="frame"><img src="images/rooted-ticket.jpg" width="1400" height="795" loading="lazy" alt="Golden ticket reward window offering a choice of three items"></div>
+            <figcaption>Reward tickets: choose one of three.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="about">
+  <div class="wrap">
+    <div>
+      <h2>About me</h2>
+      <p>I'm Urolbek, 21, from Kazakhstan. I learn by building: every game here was made by me alone, with AI tools helping me write code and learn faster.</p>
+    </div>
+    <div>
+      <p class="muted" style="margin-top: 58px;">The minimum wage in Kazakhstan is about 80,000 tenge, roughly $150 a month, so paid subscriptions in dollars are hard to reach. That is why I'm asking for support to start the history game.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer>
+    <p>If you want to help, give feedback or just talk about the project:</p>
+    <a class="mail" href="mailto:oooralbekhouse@gmail.com">oooralbekhouse@gmail.com</a>
+  </footer>
+</div>
+
+</body>
+</html>
